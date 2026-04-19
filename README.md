@@ -1,99 +1,128 @@
-# Monorepo exemple setup
+# GainsFlow
 
-This repository is a bootstrap exemple for a project with multiple apps :
+GainsFlow est une application de suivi de musculation, inspirée par des produits comme Hevy.
 
-- api (NestJS)
-- web (NextJS)
-- mobile (React Native)
+Ce repository contient mon projet de fin d'etudes, avec une architecture monorepo regroupant:
 
-Using pnpm workspaces (and turborepo for conveniance)
+- une application mobile (React Native + Expo)
+- une API backend (NestJS)
+- une application web (Next.js)
+- des packages partages (utils et configurations TypeScript)
 
-## Structure
+## Vision du projet
 
+L'objectif de GainsFlow est d'offrir un outil simple et performant pour suivre sa progression a la salle:
+
+- planifier et enregistrer ses seances
+- suivre ses exercices, series, charges et repetitions
+- visualiser sa progression dans le temps
+- centraliser les donnees d'entrainement entre mobile, API et web
+
+## Stack technique
+
+- Monorepo: pnpm workspaces + Turborepo
+- Mobile: Expo, React Native, Expo Router, NativeWind
+- API: NestJS, Vitest
+- Web: Next.js
+- Qualite de code: Biome, ESLint, Husky, lint-staged
+- Langage: TypeScript
+
+## Structure du repository
+
+```text
+apps/
+	api/      # Backend NestJS
+	mobile/   # Application mobile Expo/React Native
+	web/      # Application web Next.js
+
+packages/
+	shared-utils/  # Fonctions partagees entre apps
+
+tsconfig/
+	# Presets TypeScript partages
 ```
-apps => application that can be started
-packages => shared packages
+
+## Prerequis
+
+- Node.js >= 20
+- pnpm 10+
+- (Mobile) Expo Go ou emulateur Android/iOS
+
+## Installation
+
+```bash
+pnpm install
 ```
 
-Every package or app must have a `package.json` file describing dependencies, naming of the package should be `@monorepo-base/package-name` (change monorepo-base by what you want but keep consistency).
+## Commandes principales
 
-## Setup
+Depuis la racine du projet:
 
-1. Install the IDE extension Biome (for linting)
-2. Install pnpm (from website curl, if you want pnpm to automaticaly manage node version, which is recommended, avoid npm, corepack or packaga manager => https://pnpm.io/installation)
-3. Install dependencies: `pnpm i`
-4. In package.json, change the project name : "name": "monorepo-base"
-
-
-## Develop
-
-### Run the project with
-
-```
+```bash
+# Lancer le developpement (API + mobile)
 pnpm dev
-```
 
-all apps will be launched in parallel.
+# Lancer tous les tests du monorepo
+pnpm test
 
-### Build the project
+# Lancer la verification de style/qualite
+pnpm lint
 
-```
+# Corriger automatiquement les problemes formatables
+pnpm lint:fix
+
+# Build monorepo
 pnpm build
 ```
 
-### Test the project
+## Commandes utiles par application
 
-```
-pnpm test
-```
+### Mobile (apps/mobile)
 
-or
-
-```
-pnpm test:watch
-```
-
-### Lint and format the project
-
-```
-pnpm lint
+```bash
+pnpm --filter @workspace/mobile dev
+pnpm --filter @workspace/mobile android
+pnpm --filter @workspace/mobile ios
+pnpm --filter @workspace/mobile web
 ```
 
-or to fix issues:
+### API (apps/api)
 
+```bash
+pnpm --filter @workspace/api dev
+pnpm --filter @workspace/api test
+pnpm --filter @workspace/api test:watch
+pnpm --filter @workspace/api test:cov
 ```
-pnpm lint:fix
+
+### Web (apps/web)
+
+```bash
+pnpm --filter @workspace/web dev
+pnpm --filter @workspace/web build
+pnpm --filter @workspace/web start
 ```
 
-## Technical informations
+## Qualite et workflow
 
-### Turborepo
+- Les commits sont verifies par Husky (hooks pre-commit)
+- Le lint et le formatage sont appliques via lint-staged
+- Les tests sont executes via Turborepo
+- Le code partage est expose via le namespace `@workspace/*`
 
-Turborepo is used to run scripts in parallel and cache results.
-It is fundamentaly not a requirement since `pnpm run -R ` can also do that.
+## Notes architecture
 
-### Typescript
+- Les alias TypeScript sont centralises dans `tsconfig.base.json`
+- Les applications consomment les packages workspace directement
+- Le package `@workspace/shared-utils` permet d'eviter la duplication de logique entre apps
 
-The challenge of a monorepo is to make packages shareable, usualy we do that by compiling packages prior to using them within the apps.
+## Objectif academique
 
-It may cause issues with live-reloads, since the dependency packages will need to be recompiled first when a package is updated, and the apps will need to know that and rebuild too.
-Also if one app is ESM and the other is CommonJS, it will cause issues, and will need a "double" compilation of the package.
-Precompiling package also means dependency can have trouble being tree-shaken.
+Ce projet sert de support principal pour mon projet de fin d'etudes.
 
-The approach here is to use :
+Il me permet de demontrer:
 
-- webpack on NestJS, compiling everything and using `node-externals` for exclusions (like node_modules) except for the packages starting by our prefix `@workspace`
-- transpilePackages on NextJS, to compile the packages starting by our prefix `@workspace`
-
-This way, the apps themselves use the package sources directly without the need to be precompiled first.
-
-All TypeScript configurations extend from two sources:
-
-../../tsconfig.base.json at the root, which centralizes the paths aliases for all @workspace/* packages
-@workspace/tsconfig/[preset].json (e.g. nest.json, next.json) which provides the compiler options specific to each app type
-
-This means renaming or adding a package only requires updating tsconfig.base.json in one place.
-
-### Biome
-
-Biome is used for linting and formatting. Faster than eslint, but less available rules, also handle formatting (instead of prettier).
+- la conception d'une application mobile orientee produit
+- la mise en place d'une architecture fullstack moderne
+- la gestion de la qualite logicielle (tests, lint, conventions de commit)
+- l'industrialisation d'un projet via monorepo
