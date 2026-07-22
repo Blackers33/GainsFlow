@@ -11,7 +11,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme'
 import { NAV_THEME } from '@/lib/theme'
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: 'auth',
 }
 
 export default function RootLayout() {
@@ -25,6 +25,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? NAV_THEME.dark : NAV_THEME.light}>
       <Stack>
+        <Stack.Screen name="auth" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>
