@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@react-navigation/native'
+import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
@@ -8,7 +9,9 @@ import { useColorScheme as useNativewindColorScheme } from 'nativewind'
 
 import '../global.css'
 import { useColorScheme } from '@/hooks/use-color-scheme'
+import { db } from '@/lib/db/client'
 import { NAV_THEME } from '@/lib/theme'
+import migrations from '../drizzle/migrations'
 
 export const unstable_settings = {
   anchor: 'auth',
@@ -17,10 +20,21 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme()
   const { setColorScheme } = useNativewindColorScheme()
+  const { success, error } = useMigrations(db, migrations)
 
   useEffect(() => {
     setColorScheme(colorScheme ?? 'light')
   }, [colorScheme, setColorScheme])
+
+  useEffect(() => {
+    if (error) {
+      console.error('Database migration failed', error)
+    }
+  }, [error])
+
+  if (!success) {
+    return null
+  }
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? NAV_THEME.dark : NAV_THEME.light}>

@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import 'reflect-metadata'
 
 // biome-ignore lint/suspicious/noExplicitAny: to allow hmr

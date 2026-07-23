@@ -4,6 +4,7 @@ import request from 'supertest'
 import { afterAll, beforeAll, describe, it } from 'vitest'
 import { AppModule } from '../src/app.module'
 import { AppService } from '../src/app.service'
+import { DB_CLIENT } from '../src/db/db.module'
 
 describe('API e2e', () => {
   let app: INestApplication
@@ -24,6 +25,8 @@ describe('API e2e', () => {
     })
       .overrideProvider(AppService)
       .useValue(appService)
+      .overrideProvider(DB_CLIENT)
+      .useValue({})
       .compile()
 
     app = moduleRef.createNestApplication()

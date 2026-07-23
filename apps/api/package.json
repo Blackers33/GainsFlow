@@ -9,14 +9,19 @@
     "dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:cov": "vitest run --coverage"
+    "test:cov": "vitest run --coverage",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@workspace/shared-utils": "workspace:^",
+    "@libsql/client": "^0.17.4",
     "@nestjs/cli": "^11.0.10",
     "@nestjs/common": "^11.1.9",
     "@nestjs/core": "^11.1.9",
     "@nestjs/platform-express": "^11.1.9",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.45.2",
     "reflect-metadata": "^0.2.2",
     "run-script-webpack-plugin": "^0.2.3"
   },
@@ -27,6 +32,7 @@
     "@types/node": "^24.10.1",
     "@types/supertest": "^2.0.16",
     "@vitest/coverage-v8": "^1.6.0",
+    "drizzle-kit": "^0.31.10",
     "supertest": "^7.0.0",
     "ts-loader": "^9.5.4",
     "unplugin-swc": "^1.5.8",
