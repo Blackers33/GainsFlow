@@ -382,3 +382,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,jetbrains,nextjs,node,linux,windows,macos,turbo
+
+# Local Claude context
+CLAUDE.md

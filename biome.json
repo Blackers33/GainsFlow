@@ -29,13 +29,26 @@
       "complexity": { "useLiteralKeys": "off" },
       "correctness": { "noUnusedVariables": "warn" },
       "suspicious": { "noExplicitAny": "warn", "noTsIgnore": "warn", "noUnknownAtRules": "off" }
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
     }
   },
+  "overrides": [
+    {
+      "includes": ["apps/mobile/**"],
+      "linter": {
+        "domains": { "react": "recommended" }
+      }
+    },
+    {
+      "includes": ["apps/web/**"],
+      "linter": {
+        "domains": { "next": "recommended" }
+      }
+    }
+  ],
   "javascript": {
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    },
     "formatter": {
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
