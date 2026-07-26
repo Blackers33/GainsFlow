@@ -10,7 +10,7 @@ export default function AuthScreen() {
   const router = useRouter()
 
   return (
-    <View className="flex-1 items-center justify-center bg-background px-6 py-10">
+    <View className="flex-1 items-center justify-center bg-card px-6 py-10">
       <Text className="text-xl font-bold text-foreground">GainsFlow</Text>
       <Text className="text-sm text-muted-foreground">Track. Progress. Dominate.</Text>
       <View className="h-8 w-full opacity-0" />
