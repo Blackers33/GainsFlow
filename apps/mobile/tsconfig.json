@@ -3,7 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@workspace/shared-utils": ["../../packages/shared-utils/src"]
     }
   },
   "include": [

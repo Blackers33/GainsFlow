@@ -3,7 +3,12 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Text } from '@/components/ui/text'
 import { useColorScheme } from '@/hooks/use-color-scheme'
-import { EXERCISE_TYPES, type ExerciseType, getExerciseTypeColor } from '@/lib/exercise-types'
+import {
+  EXERCISE_TYPES,
+  type ExerciseType,
+  getExerciseType,
+  getExerciseTypeColor,
+} from '@/lib/exercise-types'
 import type { Routine } from '@/lib/mock-routines'
 
 const PREVIEW_COUNT = 3
@@ -18,7 +23,9 @@ function RoutineCard({ routine, onPress }: RoutineCardProps) {
   const previewedExercises = routine.exercises.slice(0, PREVIEW_COUNT)
   const remainingCount = routine.exercises.length - previewedExercises.length
   const presentTypes = (Object.keys(EXERCISE_TYPES) as ExerciseType[]).filter(type =>
-    routine.exercises.some(exercise => exercise.type === type),
+    routine.exercises.some(
+      exercise => getExerciseType(exercise.primaryMuscle, exercise.category) === type,
+    ),
   )
 
   return (
@@ -40,7 +47,12 @@ function RoutineCard({ routine, onPress }: RoutineCardProps) {
               <View key={exercise.id} className="flex-row items-center gap-2">
                 <View
                   className="h-2 w-2 rounded-full"
-                  style={{ backgroundColor: getExerciseTypeColor(exercise.type, isDark) }}
+                  style={{
+                    backgroundColor: getExerciseTypeColor(
+                      getExerciseType(exercise.primaryMuscle, exercise.category),
+                      isDark,
+                    ),
+                  }}
                 />
                 <Text className="text-sm text-foreground">{exercise.name}</Text>
                 <Text className="ml-auto text-xs text-muted-foreground">3 sets</Text>

@@ -1,3 +1,4 @@
+import type { ExerciseCategory, Muscle } from '@workspace/shared-utils'
 export type ExerciseType = 'chest' | 'back' | 'shoulders' | 'arms' | 'legs' | 'core' | 'cardio'
 
 type ExerciseTypeConfig = {
@@ -16,7 +17,32 @@ export const EXERCISE_TYPES: Record<ExerciseType, ExerciseTypeConfig> = {
   cardio: { label: 'Cardio', color: '#4a3aa7', darkColor: '#9085e9' },
 }
 
+const MUSCLE_TO_TYPE: Record<Muscle, Exclude<ExerciseType, 'cardio'>> = {
+  chest: 'chest',
+  lats: 'back',
+  lower_back: 'back',
+  middle_back: 'back',
+  shoulders: 'shoulders',
+  neck: 'shoulders',
+  traps: 'shoulders',
+  biceps: 'arms',
+  triceps: 'arms',
+  forearms: 'arms',
+  quadriceps: 'legs',
+  hamstrings: 'legs',
+  calves: 'legs',
+  glutes: 'legs',
+  abductors: 'legs',
+  adductors: 'legs',
+  abdominals: 'core',
+}
+
 export function getExerciseTypeColor(type: ExerciseType, isDark: boolean): string {
   const config = EXERCISE_TYPES[type]
   return isDark ? config.darkColor : config.color
+}
+
+export function getExerciseType(primaryMuscle: Muscle, category: ExerciseCategory): ExerciseType {
+  if (category === 'cardio') return 'cardio'
+  return MUSCLE_TO_TYPE[primaryMuscle]
 }

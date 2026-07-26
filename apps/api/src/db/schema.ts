@@ -1,4 +1,5 @@
 import type { RoutineExerciseData } from '@workspace/shared-utils'
+import { CATEGORIES, EQUIPMENT, FORCES, LEVELS, MECHANICS, MUSCLES } from '@workspace/shared-utils'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const users = sqliteTable('users', {
@@ -9,12 +10,21 @@ export const users = sqliteTable('users', {
 })
 
 export const exercises = sqliteTable('exercises', {
+  // slug stable, ex: 'bench_press' — sert aussi de nom de fichier image sur le CDN
   id: text('id').primaryKey(),
+  // libellé anglais, fallback si une traduction manque
   name: text('name').notNull(),
-  type: text('type').notNull(), // mirrors ExerciseType from apps/mobile/lib/exercise-types.ts
-  equipment: text('equipment'),
+
+  primaryMuscle: text('primary_muscle', { enum: [...MUSCLES] }),
+  equipment: text('equipment', { enum: [...EQUIPMENT] }),
+  category: text('category', { enum: [...CATEGORIES] }),
+  level: text('level', { enum: [...LEVELS] }),
+  force: text('force', { enum: [...FORCES] }),
+  mechanic: text('mechanic', { enum: [...MECHANICS] }),
+
   isCustom: integer('is_custom', { mode: 'boolean' }).notNull().default(false),
-  ownerId: text('owner_id'), // null si global/admin, sinon userId
+  ownerId: text('owner_id'), // null si global
+
   updatedAt: integer('updated_at').notNull(),
 })
 

@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
+    "babel-plugin-inline-import": "^3.0.0",
     "babel-preset-expo": "^55.0.17",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9.25.0",
