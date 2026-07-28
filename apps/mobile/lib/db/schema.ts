@@ -1,5 +1,13 @@
 import type { RoutineExerciseData } from '@workspace/shared-utils'
-import { CATEGORIES, EQUIPMENT, FORCES, LEVELS, MECHANICS, MUSCLES } from '@workspace/shared-utils'
+import {
+  CATEGORIES,
+  EQUIPMENT,
+  FORCES,
+  LEVELS,
+  LOCALES,
+  MECHANICS,
+  MUSCLES,
+} from '@workspace/shared-utils'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const exercises = sqliteTable('exercises', {
@@ -19,6 +27,13 @@ export const exercises = sqliteTable('exercises', {
   ownerId: text('owner_id'), // null si global
 
   updatedAt: integer('updated_at').notNull(),
+})
+
+export const exerciseTranslations = sqliteTable('exercise_translations', {
+  id: text('id').primaryKey(),
+  exerciseId: text('exercise_id').notNull(), // référence exercises.id par convention
+  locale: text('locale', { enum: [...LOCALES] }).notNull(),
+  name: text('name').notNull(),
 })
 
 export const programs = sqliteTable('programs', {

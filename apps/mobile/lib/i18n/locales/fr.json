@@ -1,0 +1,42 @@
+{
+  "auth": {
+    "appName": "GainsFlow",
+    "tagline": "Track. Progress. Dominate.",
+    "email": "E-mail",
+    "emailPlaceholder": "m@example.com",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "orDivider": "- ou -",
+    "continueAsGuest": "Continuer en tant qu'invité",
+    "noAccount": "Pas encore de compte ?",
+    "signUp": "S'inscrire"
+  },
+  "navigation": {
+    "training": "Entraînement",
+    "explore": "Explorer"
+  },
+  "home": {
+    "todaysTraining": "Entraînement du jour",
+    "myRoutines": "Mes routines"
+  },
+  "routineCard": {
+    "exerciseCount_one": "{{count}} exercice",
+    "exerciseCount_other": "{{count}} exercices",
+    "setsCount_one": "{{count}} série",
+    "setsCount_other": "{{count}} séries",
+    "moreCount": "+{{count}} de plus"
+  },
+  "exerciseTypes": {
+    "chest": "Pectoraux",
+    "back": "Dos",
+    "shoulders": "Épaules",
+    "arms": "Bras",
+    "legs": "Jambes",
+    "core": "Abdominaux",
+    "cardio": "Cardio"
+  },
+  "common": {
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe"
+  }
+}

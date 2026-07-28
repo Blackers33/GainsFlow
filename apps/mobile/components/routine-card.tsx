@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Pressable, View } from 'react-native'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
@@ -20,6 +21,7 @@ type RoutineCardProps = {
 
 function RoutineCard({ routine, onPress }: RoutineCardProps) {
   const isDark = useColorScheme() === 'dark'
+  const { t } = useTranslation()
   const previewedExercises = routine.exercises.slice(0, PREVIEW_COUNT)
   const remainingCount = routine.exercises.length - previewedExercises.length
   const presentTypes = (Object.keys(EXERCISE_TYPES) as ExerciseType[]).filter(type =>
@@ -36,7 +38,7 @@ function RoutineCard({ routine, onPress }: RoutineCardProps) {
             <View className="shrink">
               <Text className="text-base font-semibold text-foreground">{routine.title}</Text>
               <Text className="text-xs text-muted-foreground">
-                {routine.exercises.length} exercises
+                {t('routineCard.exerciseCount', { count: routine.exercises.length })}
               </Text>
             </View>
             <Text className="text-sm text-muted-foreground">{routine.duration}</Text>
@@ -55,18 +57,22 @@ function RoutineCard({ routine, onPress }: RoutineCardProps) {
                   }}
                 />
                 <Text className="text-sm text-foreground">{exercise.name}</Text>
-                <Text className="ml-auto text-xs text-muted-foreground">3 sets</Text>
+                <Text className="ml-auto text-xs text-muted-foreground">
+                  {t('routineCard.setsCount', { count: 3 })}
+                </Text>
               </View>
             ))}
             {remainingCount > 0 && (
-              <Text className="text-xs text-muted-foreground">+{remainingCount} more</Text>
+              <Text className="text-xs text-muted-foreground">
+                {t('routineCard.moreCount', { count: remainingCount })}
+              </Text>
             )}
           </View>
 
           <View className="flex-row flex-wrap gap-1.5">
             {presentTypes.map(type => (
               <Badge key={type} color={getExerciseTypeColor(type, isDark)}>
-                {EXERCISE_TYPES[type].label}
+                {t(EXERCISE_TYPES[type].label)}
               </Badge>
             ))}
           </View>

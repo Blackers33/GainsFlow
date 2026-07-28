@@ -8,6 +8,7 @@ import { PortalHost } from '@rn-primitives/portal'
 import { useColorScheme as useNativewindColorScheme } from 'nativewind'
 
 import '../global.css'
+import '@/lib/i18n'
 import { useColorScheme } from '@/hooks/use-color-scheme'
 import { db } from '@/lib/db/client'
 import { NAV_THEME } from '@/lib/theme'

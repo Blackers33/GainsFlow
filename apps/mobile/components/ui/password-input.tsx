@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Pressable, type TextInput, View } from 'react-native'
 import { Input } from '@/components/ui/input'
 import { Eye } from '@/lib/icons/eye'
@@ -9,7 +10,7 @@ type PasswordInputProps = Omit<React.ComponentProps<typeof TextInput>, 'secureTe
 
 function PasswordInput({ className, ...props }: PasswordInputProps) {
   const [isRevealed, setIsRevealed] = React.useState(false)
-
+  const { t } = useTranslation()
   return (
     <View className="relative justify-center">
       <Input secureTextEntry={!isRevealed} className={cn('pr-10', className)} {...props} />
@@ -18,7 +19,7 @@ function PasswordInput({ className, ...props }: PasswordInputProps) {
         onPressOut={() => setIsRevealed(false)}
         hitSlop={8}
         accessibilityRole="button"
-        accessibilityLabel={isRevealed ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+        accessibilityLabel={isRevealed ? t('common.hidePassword') : t('common.showPassword')}
         className="absolute inset-y-0 right-3 justify-center"
       >
         {isRevealed ? (
