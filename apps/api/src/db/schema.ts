@@ -28,6 +28,15 @@ export const exercises = sqliteTable('exercises', {
   updatedAt: integer('updated_at').notNull(),
 })
 
+export const programs = sqliteTable('programs', {
+  id: text('id').primaryKey(), // uuid généré côté client
+  userId: text('user_id').notNull(),
+  programId: text('program_id'),
+  name: text('name').notNull(),
+  createdAt: integer('created_at').notNull(),
+  updatedAt: integer('updated_at').notNull(),
+})
+
 export const routines = sqliteTable('routines', {
   id: text('id').primaryKey(), // uuid généré côté client
   userId: text('user_id').notNull(),
